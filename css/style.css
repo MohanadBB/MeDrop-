@@ -257,7 +257,7 @@ footer.site .wrap { display: flex; justify-content: space-between; gap: 16px; fl
   .topbar .wrap { gap: 6px; padding-top: 8px; padding-bottom: 6px }
   .nav { flex: 1 1 100%; justify-content: flex-start; flex-wrap: nowrap; overflow-x: auto; width: 100%; padding-bottom: 4px; scrollbar-width: none }
   .nav a, .nav button { flex: none; padding: 8px 10px; font-size: 14px }
-  
+  .who { display: none }
   table { font-size: 14px }
   .stack thead { display: none }
   .stack tr { display: grid; padding: 10px 0; border-bottom: 1px solid var(--line) }
