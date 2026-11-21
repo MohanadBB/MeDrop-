@@ -62,7 +62,7 @@ var AIRecognitionAPI = {
   hasRuntime: function () { return !!(window.claude && typeof window.claude.use === "function"); },
 
   /* Which AI service a saved key belongs to: Google Gemini keys start with "AIza" */
-  provider: function (key) { return /^AIza/.test(key || this.getKey()) ? "gemini" : "anthropic"; },
+  provider: function (key) { return /^(AIza|AQ\.)/.test(key || this.getKey()) ? "gemini" : "anthropic"; },
   GEMINI_MODELS: ["gemini-flash-latest", "gemini-3.6-flash", "gemini-2.5-flash"],
 
   /* Google Gemini API, straight from the browser (key saved by the administrator) */
