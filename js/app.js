@@ -1033,7 +1033,7 @@
     form.onsubmit = function (e) {
       e.preventDefault();
       var v = $("#aiKey").value.trim();
-      if (!/^(sk-ant-\S{10,}|AIza[\w-]{30,})$/.test(v)) return showErrors(form, $("#aiKeyErr"), [{ field: "aiKey", msg: "That doesn't look like an AI API key. Claude keys start with sk-ant- and Gemini keys start with AIza." }]);
+      if (!/^(sk-ant-\S{10,}|AIza[\w-]{30,}|AQ\.[\w.-]{20,})$/.test(v)) return showErrors(form, $("#aiKeyErr"), [{ field: "aiKey", msg: "That doesn't look like an AI API key. Claude keys start with sk-ant- and Gemini keys start with AIza or AQ." }]);
       if (!AIRecognitionAPI.setKey(v)) return showErrors(form, $("#aiKeyErr"), [{ msg: "This browser won't let MedDrop save the key (private browsing may block it)." }]);
       render(); toast("Photo reading is on in this browser.");
     };
