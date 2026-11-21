@@ -61,7 +61,43 @@ var AIRecognitionAPI = {
   setKey: function (key) { try { if (key) localStorage.setItem(this.KEY_NAME, key); else localStorage.removeItem(this.KEY_NAME); return true; } catch (e) { return false; } },
   hasRuntime: function () { return !!(window.claude && typeof window.claude.use === "function"); },
 
+  /* Which AI service a saved key belongs to: Google Gemini keys start with "AIza" */
+  provider: function (key) { return /^AIza/.test(key || this.getKey()) ? "gemini" : "anthropic"; },
+  GEMINI_MODELS: ["gemini-flash-latest", "gemini-3.6-flash", "gemini-2.5-flash"],
+
+  /* Google Gemini API, straight from the browser (key saved by the administrator) */
+  viaGemini: function (photo) {
+    var self = this, key = this.getKey();
+    return this.shrink(photo.file).then(function (blob) { return self.toBase64(blob); }).then(function (b64) {
+      var body = JSON.stringify({
+        contents: [{ parts: [{ inline_data: { mime_type: "image/jpeg", data: b64 } }, { text: self.prompt() }] }],
+        generationConfig: { responseMimeType: "application/json", temperature: 0 }
+      });
+      /* model names change over time, so try each until one answers */
+      function attempt(i) {
+        if (i >= self.GEMINI_MODELS.length) throw { code: "unavailable" };
+        return fetch("https://generativelanguage.googleapis.com/v1beta/models/" + self.GEMINI_MODELS[i] + ":generateContent", {
+          method: "POST", headers: { "content-type": "application/json", "x-goog-api-key": key }, body: body
+        }).catch(function () { throw { code: "unavailable" }; }).then(function (res) {
+          return res.json().catch(function () { return {}; }).then(function (data) {
+            var reason = JSON.stringify(data.error || "");
+            if (res.status === 404) return attempt(i + 1);
+            if (res.status === 403 || /API_KEY_INVALID|API key not valid/i.test(reason)) throw { code: "bad_key" };
+            if (res.status === 429) throw { code: "rate_limited" };
+            if (!res.ok) { console.warn("MedDrop: Gemini error", res.status, data); return attempt(i + 1); }
+            var parts = (((data.candidates || [])[0] || {}).content || {}).parts || [];
+            var text = parts.map(function (p) { return p.text || ""; }).join("");
+            return self.fromMessage({ content: [{ type: "text", text: text }] });
+          });
+        });
+      }
+      return attempt(0);
+    });
+  },
+
+   
   viaBrowserKey: function (photo) {
+         if (this.provider() === "gemini") return this.viaGemini(photo);
     var self = this, key = this.getKey();
     return this.shrink(photo.file).then(function (blob) { return self.toBase64(blob); }).then(function (b64) {
       return fetch("https://api.anthropic.com/v1/messages", {
