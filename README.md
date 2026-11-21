@@ -69,3 +69,16 @@ All use the password `Demo@123`:
   "Restore sample data".
 - Opening `index.html` directly (double-click) works for everything except reading real
   photos; the sample photos on the "Use a photo of the box" tab still work.
+
+
+## Testing Instructions
+
+1. Open the MedDrop website in Chrome or Edge.
+2. Log in using the sample accounts provided above.
+3. **Household User:** Register a medicine, view disposal guidance, search for a collection facility, submit a return request, and check its status.
+4. **Facility Staff:** Review a return request, approve or reject it, and confirm receipt of an approved request.
+5. **Administrator:** View and manage user accounts, collection facilities, and return records.
+6. Test invalid inputs, such as missing medicine details or submitting a return request without selecting a facility.
+7. Verify that the system displays appropriate confirmation and error messages.
+
+**Note:** The prototype stores records in the browser's local storage. Real AI-assisted photo recognition requires an API key and the appropriate configuration.
