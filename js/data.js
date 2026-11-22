@@ -149,7 +149,11 @@ var Store = {
     this.save();
   },
 
-  
+  load: function () {
+    var raw = null;
+    try { raw = JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch (e) { this.persistent = false; }
+    if (raw && raw.users) this.build(raw); else this. Reset();
+  },
 
   save: function () {
     if (!this.persistent) return;
