@@ -548,7 +548,7 @@ class DisposalGuidance {
 /* Approximate centre points of supported areas, used to order results by distance */
 var AREA_POINTS = {
   "abu dhabi": { lat: 24.4539, lng: 54.3773 }, "al markaziyah": { lat: 24.4930, lng: 54.3650 },
-  "khalifa city": { lat: 24.4190, lng: 54.5760 }, "mussafah": { lat: 24.3500, lng: 54.5000 },
+  "khalifa city": { lat: 24.4190, lng: 54.5760 }, "Mussafah": { lat: 24.3500, lng: 54.5000 },
   "dubai": { lat: 25.2048, lng: 55.2708 }, "al barsha": { lat: 25.1110, lng: 55.1990 },
   "deira": { lat: 25.2700, lng: 55.3100 }, "jumeirah": { lat: 25.2090, lng: 55.2490 },
   "sharjah": { lat: 25.3463, lng: 55.4209 }, "al majaz": { lat: 25.3230, lng: 55.3850 },
