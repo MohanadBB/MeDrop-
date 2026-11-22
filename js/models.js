@@ -169,7 +169,7 @@ class HouseholdUser extends User {
       case "guidance": {
         /* getMedicine(medicineID) → MedicineDetails */
         var MedicineDetails = Medicine.getMedicine(medicineID, this.userId);
-        if (!MedicineDetails) return;
+        if (!MedicineDetails) ;
         /* GetDisposalGuidance(medicine details) → guidanceDetails */
         var guidanceDetails = DisposalGuidance.getDisposalGuidance(MedicineDetails);
         /* alt [Guidance Unavailable] */
