@@ -168,7 +168,11 @@ var Store = {
     return max + 1;
   },
 
-  
+findBy: function (table, key, value) {
+    var rows = this.tables[table];
+    for (var i = 0; i < rows.length; i++) if (rows[i][key] === Number(value)) return rows[i];
+    return null;
+  },  
   findUser: function (id) { return this.findBy("users", "userId", id); },
   findMedicine: function (id) { return this.findBy("medicines", "medicineId", id); },
   findFacility: function (id) { return this.findBy("facilities", "facilityId", id); },
