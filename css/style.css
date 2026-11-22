@@ -8,7 +8,7 @@
   color-scheme: light dark;
   --bg: light-dark(#f7faf8, #0e1714);
   --card: light-dark(#ffffff, #15211d);
-
+  --ink: light-dark(#14231e, #e6efeb);
    --muted: light-dark(#5a6b65, #9db2aa);
   --line: light-dark(#d9e5e0, #263731);
   --green: light-dark(#0b5d4b, #4fc3a1);
