@@ -42,6 +42,7 @@ Windows (Command Prompt):
 ```
 cd meddrop
 set ANTHROPIC_API_KEY=sk-ant-your-key
+Gemini API AI
 java server\MedDropServer.java
 ```
 
